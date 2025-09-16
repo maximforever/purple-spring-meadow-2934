@@ -1,23 +1,29 @@
 import { twMerge } from "tailwind-merge";
 import clsx from "clsx";
+import ListControls from "./ListControls";
 
-interface Collection {
-  id: string;
-  collection_name: string;
-}
+import { ICollection, ICompany } from "../types";
 
 interface CollectionsNavProps {
-  collectionsResponse: Collection[];
+  collectionsResponse?: ICollection[];
   selectedCollectionId?: string;
   onCollectionSelect: (collectionId: string) => void;
+  moveSelectedCompaniesToCollection: (collectionId: string) => void;
+  selectedCompanies: ICompany[];
 }
 
 const CollectionsNav = ({
   collectionsResponse,
   selectedCollectionId,
   onCollectionSelect,
+  moveSelectedCompaniesToCollection,
+  selectedCompanies,
 }: CollectionsNavProps) => {
   const renderCollectionsList = () => {
+    if (!collectionsResponse) {
+      return null;
+    }
+
     return collectionsResponse.map((collection) => {
       const classes = twMerge(
         clsx(
@@ -40,10 +46,21 @@ const CollectionsNav = ({
     });
   };
 
+  // TODO - add skeleton/loading state
+  if (!collectionsResponse) {
+    return null;
+  }
+
   return (
     <>
       <p className=" font-bold border-b mb-2 pb-2 text-left">Collections</p>
       <div className="flex flex-col gap-2 text-left">{renderCollectionsList()}</div>
+      <ListControls
+        collections={collectionsResponse}
+        selectedCollectionId={selectedCollectionId}
+        moveSelectedCompaniesToCollection={moveSelectedCompaniesToCollection}
+        selectedCompanies={selectedCompanies}
+      />
     </>
   );
 };

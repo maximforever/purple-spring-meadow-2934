@@ -3,24 +3,32 @@ import { useEffect, useState } from "react";
 import { getCollectionsById } from "../utils/jam-api";
 import { ICompany } from "../types";
 
-const CompanyTable = (props: { selectedCollectionId: string }) => {
+type CompanyTableProps = {
+  selectedCollectionId: string;
+  selectedCompanies: ICompany[];
+  handleCompanySelect: (companies: ICompany[]) => void;
+};
+
+const CompanyTable = ({
+  selectedCollectionId,
+  handleCompanySelect,
+  selectedCompanies,
+}: CompanyTableProps) => {
   const [response, setResponse] = useState<ICompany[]>([]);
   const [total, setTotal] = useState<number>();
   const [offset, setOffset] = useState<number>(0);
   const [pageSize, setPageSize] = useState(25);
 
-  const [selectedCompanies, setSelectedCompanies] = useState<ICompany[]>([]);
-
   useEffect(() => {
-    getCollectionsById(props.selectedCollectionId, offset, pageSize).then((newResponse) => {
+    getCollectionsById(selectedCollectionId, offset, pageSize).then((newResponse) => {
       setResponse(newResponse.companies);
       setTotal(newResponse.total);
     });
-  }, [props.selectedCollectionId, offset, pageSize]);
+  }, [selectedCollectionId, offset, pageSize]);
 
   useEffect(() => {
     setOffset(0);
-  }, [props.selectedCollectionId]);
+  }, [selectedCollectionId]);
 
   const updateSelectedCompanies = (newRowSelectionModel: number[]) => {
     const newCompanySelection: ICompany[] = [];
@@ -32,32 +40,7 @@ const CompanyTable = (props: { selectedCollectionId: string }) => {
       }
     }
 
-    setSelectedCompanies(newCompanySelection);
-  };
-
-  const renderListControls = () => {
-    if (selectedCompanies.length === 0) {
-      return null;
-    }
-
-    return (
-      <div>
-        <div>
-          {selectedCompanies
-            .sort((a, b) => (b.id - a.id > 0 ? -1 : 1))
-            .map((company) => company.company_name)
-            .join(", ")}
-        </div>
-        <div className="my-2">
-          Add to list:
-          <select className="text-white bg-black border border-white">
-            <option value="liked">Liked</option>
-            <option value="my_list">My List</option>
-            <option value="companies_to_ignore">Companies to Ignore</option>
-          </select>
-        </div>
-      </div>
-    );
+    handleCompanySelect(newCompanySelection);
   };
 
   return (
@@ -78,6 +61,7 @@ const CompanyTable = (props: { selectedCollectionId: string }) => {
         rowCount={total}
         pagination
         checkboxSelection
+        rowSelectionModel={selectedCompanies.map((company) => company.id)}
         onRowSelectionModelChange={(newRowSelectionModel) => {
           updateSelectedCompanies(newRowSelectionModel as number[]);
         }}
