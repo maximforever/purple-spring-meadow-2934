@@ -1,6 +1,7 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
-import { getCollectionsById, ICompany } from "../utils/jam-api";
+import { getCollectionsById } from "../utils/jam-api";
+import { ICompany } from "../types";
 
 const CompanyTable = (props: { selectedCollectionId: string }) => {
   const [response, setResponse] = useState<ICompany[]>([]);
@@ -8,18 +9,56 @@ const CompanyTable = (props: { selectedCollectionId: string }) => {
   const [offset, setOffset] = useState<number>(0);
   const [pageSize, setPageSize] = useState(25);
 
+  const [selectedCompanies, setSelectedCompanies] = useState<ICompany[]>([]);
+
   useEffect(() => {
-    getCollectionsById(props.selectedCollectionId, offset, pageSize).then(
-      (newResponse) => {
-        setResponse(newResponse.companies);
-        setTotal(newResponse.total);
-      }
-    );
+    getCollectionsById(props.selectedCollectionId, offset, pageSize).then((newResponse) => {
+      setResponse(newResponse.companies);
+      setTotal(newResponse.total);
+    });
   }, [props.selectedCollectionId, offset, pageSize]);
 
   useEffect(() => {
     setOffset(0);
   }, [props.selectedCollectionId]);
+
+  const updateSelectedCompanies = (newRowSelectionModel: number[]) => {
+    const newCompanySelection: ICompany[] = [];
+
+    for (const id of newRowSelectionModel) {
+      const company = response.find((company) => company.id === id);
+      if (company) {
+        newCompanySelection.push(company);
+      }
+    }
+
+    setSelectedCompanies(newCompanySelection);
+  };
+
+  const renderListControls = () => {
+    if (selectedCompanies.length === 0) {
+      return null;
+    }
+
+    return (
+      <div>
+        <div>
+          {selectedCompanies
+            .sort((a, b) => (b.id - a.id > 0 ? -1 : 1))
+            .map((company) => company.company_name)
+            .join(", ")}
+        </div>
+        <div className="my-2">
+          Add to list:
+          <select className="text-white bg-black border border-white">
+            <option value="liked">Liked</option>
+            <option value="my_list">My List</option>
+            <option value="companies_to_ignore">Companies to Ignore</option>
+          </select>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div style={{ height: 600, width: "100%" }}>
@@ -39,6 +78,9 @@ const CompanyTable = (props: { selectedCollectionId: string }) => {
         rowCount={total}
         pagination
         checkboxSelection
+        onRowSelectionModelChange={(newRowSelectionModel) => {
+          updateSelectedCompanies(newRowSelectionModel as number[]);
+        }}
         paginationMode="server"
         onPaginationModelChange={(newMeta) => {
           setPageSize(newMeta.pageSize);
