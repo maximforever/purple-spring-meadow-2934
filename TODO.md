@@ -1,9 +1,9 @@
 ## TODO
 
-[ ] Examine data structure - how is the company/collection relationship defined?
+[X] Examine data structure - how is the company/collection relationship defined?
 [ ] Figure out FE flow and architecture
   [ ] do we want to be able to add ALL the companies / only one page at a time?
-  [ ] Do we need a wrapper component for the table
+  [X] Do we need a wrapper component for the table
   [ ] FE cache/context for companies?
 [ ] Set up basic UI components: button, dropdown, event handlers
 [ ] Move a small set of companies on the FE
