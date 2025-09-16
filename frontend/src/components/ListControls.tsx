@@ -61,6 +61,7 @@ export default function ListControls({
       return;
     }
 
+    //setMoving(true); // TODO - move this to context
     setListToMoveTo(undefined);
     moveSelectedCompaniesToCollection(listToMoveTo.id);
   };

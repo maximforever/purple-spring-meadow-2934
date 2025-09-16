@@ -45,7 +45,26 @@ export async function getCollectionsMetadata(): Promise<ICollection[]> {
     const response = await axios.get(`${BASE_URL}/collections`);
     return response.data;
   } catch (error) {
-    console.error("Error fetching companies:", error);
+    console.error("Error fetching collections metadata:", error);
+    throw error;
+  }
+}
+
+export async function addCompaniesToCollection({
+  collectionId,
+  companyIds,
+}: {
+  collectionId: string;
+  companyIds: number[];
+}): Promise<{ success: boolean; message?: string }> {
+  try {
+    const response = await axios.post(`${BASE_URL}/collections/${collectionId}/add-companies`, {
+      company_ids: companyIds,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error adding companies to collection:", error);
     throw error;
   }
 }

@@ -2,20 +2,21 @@
 
 [X] Examine data structure - how is the company/collection relationship defined?
 [ ] Figure out FE flow and architecture
-  [ ] do we want to be able to add ALL the companies / only one page at a time?
+  [X] do we want to be able to add ALL the companies / only one page at a time?
   [X] Do we need a wrapper component for the table
   [ ] FE cache/context for companies?
-[ ] Set up basic UI components: button, dropdown, event handlers
+[X] Set up basic UI components: button, dropdown, event handlers
 [ ] Move a small set of companies on the FE
 [ ] Think deeply about how to handle delay; brainstorm ideas, then check with AI on more approaches
   "UX should reflect In Progress and Completed states when a lengthy action is being performed without blocking the UI"
   [ ] Figure out how to model In Progress and Completed (locked/unlocked) states on the BE
   [ ] Consider expected UX, optimistic add/remove, websockets, toast notification for done
-[ ] Wire up backend - add/remove companies to to list, lock/unlock collections
-[ ] UI/UX polish - placement, spacing
+[X] Wire up backend - add/remove companies to to list, lock/unlock collections
+[ ] UI/UX polish - placement, spacing 
 [ ] Error notifications - something like Toast? For example, if a collection is locked
 [ ] Consider Undo
 [ ] Consider Remove
+[ ] Consider refactor
 
 
 
@@ -28,6 +29,10 @@ Backend concern - duplication, if we move existing items.
 FE improvements:
 installed clsx, twmerge
 base url is no longer hardcoded to 8000; depends on VITE env
+
+UX - pages are up to 100. If someone wants to copy an entire list, that could be a COPY LIST function; adding up to 100 companies to a list at a time should be enough.
+
+Concern - components are tightly coupled, would be nice to refactor later.
 
 ## Assumptions
 
