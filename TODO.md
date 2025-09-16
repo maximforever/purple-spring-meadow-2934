@@ -27,6 +27,7 @@ Backend concern - duplication, if we move existing items.
 
 FE improvements:
 installed clsx, twmerge
+base url is no longer hardcoded to 8000; depends on VITE env
 
 ## Assumptions
 

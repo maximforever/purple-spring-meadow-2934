@@ -1,12 +1,13 @@
 import axios from "axios";
 import { ICompanyBatchResponse, ICollection } from "../types";
 
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = import.meta.env.DEV ? "http://localhost:8000" : import.meta.env.VITE_API_BASE_URL;
 
 export async function getCompanies(
   offset?: number,
   limit?: number,
 ): Promise<ICompanyBatchResponse> {
+  debugger;
   try {
     const response = await axios.get(`${BASE_URL}/companies`, {
       params: {
@@ -26,6 +27,7 @@ export async function getCollectionsById(
   offset?: number,
   limit?: number,
 ): Promise<ICollection> {
+  debugger;
   try {
     const response = await axios.get(`${BASE_URL}/collections/${id}`, {
       params: {
