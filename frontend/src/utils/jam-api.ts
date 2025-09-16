@@ -7,7 +7,6 @@ export async function getCompanies(
   offset?: number,
   limit?: number,
 ): Promise<ICompanyBatchResponse> {
-  debugger;
   try {
     const response = await axios.get(`${BASE_URL}/companies`, {
       params: {
@@ -27,7 +26,6 @@ export async function getCollectionsById(
   offset?: number,
   limit?: number,
 ): Promise<ICollection> {
-  debugger;
   try {
     const response = await axios.get(`${BASE_URL}/collections/${id}`, {
       params: {
