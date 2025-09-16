@@ -25,6 +25,9 @@ Cache & optimistic update: the actual back-end update takes a long time, but we 
 
 Backend concern - duplication, if we move existing items.
 
+FE improvements:
+installed clsx, twmerge
+
 ## Assumptions
 
 Users aren't constantly refreshing the page - 
