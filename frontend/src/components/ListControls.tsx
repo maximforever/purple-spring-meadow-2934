@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ICollection, ICompany } from "../types";
 import { twMerge } from "tailwind-merge";
 import clsx from "clsx";
@@ -15,6 +15,8 @@ type ListControlsProps = {
     fromCollectionId: string;
     toCollectionId: string;
   }) => void;
+  movingCompanies: boolean;
+  movingCompaniesError: string | null;
 };
 
 export default function ListControls({
@@ -23,6 +25,8 @@ export default function ListControls({
   selectedCompanies,
   moveSelectedCompaniesToCollection,
   moveAllCompaniesToCollection,
+  movingCompanies,
+  movingCompaniesError,
 }: ListControlsProps) {
   const otherCollections = collections.filter(
     (collection) => collection.id !== selectedCollectionId,
@@ -32,9 +36,10 @@ export default function ListControls({
   const [step, setStep] = useState<"select" | "showList">("select");
   const [selection, setSelection] = useState<"selected" | "all">("selected");
 
-  if (!selectedCompanies.length) {
-    return null;
-  }
+  useEffect(() => {
+    setStep("select");
+    setSelection;
+  }, [selectedCompanies]);
 
   const renderOtherCollectionsList = () => {
     return otherCollections.map((collection) => {
@@ -116,33 +121,69 @@ export default function ListControls({
   };
 
   const renderShowListStep = () => {
+    const companyCount = selection === "selected" ? selectedCompanies.length : "all";
+    const label =
+      selection === "selected" && selectedCompanies.length === 1 ? "company" : "companies";
+
     return (
       <div className="flex flex-col gap-2 items-start w-full">
-        <span className="text-sm text-gray-300 font-bold text-left pb-4">
-          Add <span className="underline">{selection} companies</span> to list
+        <span className="text-xs xl:text-sm text-gray-300 font-bold text-left pb-4">
+          Add{" "}
+          <span className="underline">
+            {companyCount} {label}
+          </span>{" "}
+          to list
         </span>
         <div className="flex flex-col gap-2 items-start w-full">{renderOtherCollectionsList()}</div>
-        {listToMoveTo !== undefined && (
-          <div className="w-full mt-8">
+        <div className="w-full mt-8">
+          <button
+            className="bg-inherit text-white px-4 py-0 text-sm my-2 w-full rounded-md hover:text-orange-500 hover:cursor-pointer hover:border-black"
+            onClick={() => {
+              setStep("select");
+            }}
+          >
+            Cancel
+          </button>
+          {listToMoveTo !== undefined && (
             <button
               className="bg-orange-500 text-white px-4 py-0 text-sm my-2 w-full rounded-md"
               onClick={() => handleListMove()}
             >
               Add to list
             </button>
-            <button
-              className="bg-inherit text-white px-4 py-0 text-sm my-2 w-full rounded-md hover:text-orange-500 hover:cursor-pointer hover:border-black"
-              onClick={() => {
-                setStep("select");
-              }}
-            >
-              Cancel
-            </button>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     );
   };
+
+  if (movingCompanies) {
+    return (
+      <div className="my-8 py-4 flex flex-col items-start w-full">
+        <p className="text-sm text-gray-300 font-bold text-left">Moving companies...</p>
+      </div>
+    );
+  }
+
+  if (movingCompaniesError) {
+    return (
+      <div className="my-8 py-4 flex flex-col items-start w-full">
+        <p className="text-sm text-red-700 font-bold text-left">{movingCompaniesError}</p>
+        <button
+          className="bg-inherit text-white px-4 py-0 text-sm my-2 w-full rounded-md hover:text-orange-500 hover:cursor-pointer hover:border-black"
+          onClick={() => {
+            setStep("select");
+          }}
+        >
+          Cancel
+        </button>
+      </div>
+    );
+  }
+
+  if (!selectedCompanies.length) {
+    return null;
+  }
 
   return (
     <div className="my-8 py-4 flex flex-col items-start w-full">

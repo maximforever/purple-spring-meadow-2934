@@ -17,6 +17,8 @@ interface CollectionsNavProps {
     toCollectionId: string;
   }) => void;
   selectedCompanies: ICompany[];
+  movingCompanies: boolean;
+  movingCompaniesError: string | null;
 }
 
 const CollectionsNav = ({
@@ -26,6 +28,8 @@ const CollectionsNav = ({
   moveSelectedCompaniesToCollection,
   moveAllCompaniesToCollection,
   selectedCompanies,
+  movingCompanies,
+  movingCompaniesError,
 }: CollectionsNavProps) => {
   const renderCollectionsList = () => {
     if (!collectionsResponse) {
@@ -69,6 +73,8 @@ const CollectionsNav = ({
         moveSelectedCompaniesToCollection={moveSelectedCompaniesToCollection}
         moveAllCompaniesToCollection={moveAllCompaniesToCollection}
         selectedCompanies={selectedCompanies}
+        movingCompanies={movingCompanies}
+        movingCompaniesError={movingCompaniesError}
       />
     </>
   );

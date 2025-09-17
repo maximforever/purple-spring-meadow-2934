@@ -49,9 +49,13 @@ Concern - components are tightly coupled, would be nice to refactor later.
 
 ## Assumptions
 
-Users aren't constantly refreshing the page - 
+Users aren't constantly refreshing the page
 
 "Add companies from one list to the other" doesn't mean "move" - assuming we don't need to remove items from the current collection.
 
 
 ## Next steps
+* move collections logic to a context / implement FE caching instead of prop drilling
+* add tests
+* add prettier loading state / spinner
+* add websockets / toast / async notifications

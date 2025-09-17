@@ -23,6 +23,8 @@ const darkTheme = createTheme({
 function App() {
   const [selectedCollectionId, setSelectedCollectionId] = useState<string | undefined>();
   const [selectedCompanies, setSelectedCompanies] = useState<ICompany[]>([]);
+  const [movingCompanies, setMovingCompanies] = useState(false);
+  const [movingCompaniesError, setMovingCompaniesError] = useState<string | null>(null);
   const { data: collectionResponse } = useApi(() => getCollectionsMetadata());
 
   useEffect(() => {
@@ -39,18 +41,25 @@ function App() {
     setSelectedCompanies(newCompanies);
   };
 
-  const moveSelectedCompaniesToCollection = (collectionId: string) => {
+  const moveSelectedCompaniesToCollection = async (collectionId: string) => {
     const companyIds = selectedCompanies.map((company) => company.id);
 
     setSelectedCompanies([]);
+    setMovingCompanies(true);
 
-    addCompaniesToCollection({
+    const response = await addCompaniesToCollection({
       collectionId,
       companyIds,
     });
+
+    setMovingCompanies(false);
+
+    if (!response.success && response.message) {
+      setMovingCompaniesError(response.message);
+    }
   };
 
-  const moveAllCompaniesToCollection = ({
+  const moveAllCompaniesToCollection = async ({
     fromCollectionId,
     toCollectionId,
   }: {
@@ -58,11 +67,18 @@ function App() {
     toCollectionId: string;
   }) => {
     setSelectedCompanies([]);
+    setMovingCompanies(true);
 
-    addAllCompaniesToCollection({
+    const response = await addAllCompaniesToCollection({
       fromCollectionId,
       toCollectionId,
     });
+
+    setMovingCompanies(false);
+
+    if (!response.success && response.message) {
+      setMovingCompaniesError(response.message);
+    }
   };
 
   return (
@@ -79,6 +95,8 @@ function App() {
               moveSelectedCompaniesToCollection={moveSelectedCompaniesToCollection}
               moveAllCompaniesToCollection={moveAllCompaniesToCollection}
               selectedCompanies={selectedCompanies}
+              movingCompanies={movingCompanies}
+              movingCompaniesError={movingCompaniesError}
             />
           </div>
           <div className="w-4/5 ml-4">
