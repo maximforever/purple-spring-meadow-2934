@@ -1,9 +1,9 @@
 # Harmonic Fullstack Jam
 
-Thank you for the opportunity to work on this project - I felt that it reflected my day-to-day full-stack work, and 
+Thank you for the opportunity to work on this project - I felt that it reflected my day-to-day full-stack work, and enjoyed figurign it out! 
 
 ## AI
-I wrote the majority of the code. I heavily used Cursor autocomplete, directed the Agent on some high-level work (particularly on checking my Python code), and used OpenAI Codex to quickly make sense of the codebase. I take full responsibility for every line of code I wrote.
+I wrote the majority of the code. I heavily used Cursor autocomplete, directed the Agent on some high-level work (particularly on checking my Python code), and used OpenAI Codex to quickly make sense of the codebase. Of course, I'm happy to explain every line of code I submitted!
 
 ## Demo
 
@@ -18,7 +18,7 @@ Here's what I was able to complete:
 * I created two BE endpoints to add items to a list (with deduping and some basic validation/error conditions)
 * I pulled in `twMerge` and `cslx` to work with Tailwind and added a prettier config; I also switched from a hardcoded base url to using the built-in Vite ENV.
 * I pulled out types from App.tsx into `types.ts`
-* I defined and return error states in `collections.py` - these are visible in Dev Tools, but not the UI (yet)
+* I define and return error states in `collections.py` - these are visible in Dev Tools, but not the UI (yet)
 * The app is not blocked while items are moving, and only one move operation is allowed - the UI doesn't allow more than 1 move operation, and I added a lock to the collection on the back end.
 
 You can see my work/thinking in TODO.md. You can [**review all the code I added, like a PR diff here**](https://github.com/maximforever/purple-spring-meadow-2934/compare/f7c7b66...main#diff-b335630551682c19a781afebcf4d07bf978fb1f8ac04c6bf87428ed5106870f5): 
@@ -26,9 +26,7 @@ You can see my work/thinking in TODO.md. You can [**review all the code I added,
 ## Next steps
 * Move collections logic to a React Context and implement FE caching instead of prop drilling. This will help decouple the components, and make it much easier to show 'moving' and 'completed' states, along with errors.
 * add unit and end-to-end tests
-* add a loading state / spinner (currently it just displays 'moving')
-* add a completed state (currently it just displays 'moving')
-* add errors (currently it just displays 'moving')
+* add a loading state / spinner, completed state, error state (currently it just displays 'moving')
 * add a [Toast](https://sonner.emilkowal.ski/) component to show these completed/error states
 * Add a websockets connection for lengthy async operations
 * Add a time-out guard
@@ -51,7 +49,7 @@ I realize I'm inteviewing for a FE-heavy role, and would be happy to apply some 
 In general, I tried to get to a reasonable working solution as my first priority. This solution could use some refactoring. For example, the top-level `App.tsx` acts as a wrapper for the table/nav/list actions component. There's bad prop drilling throughout the components.
 
 ## Challenges
-* The biggest challenge for me on this project was balancing good UX with lengthy async operations. I believe I figured this out somewhat, but not fully. (Ex: I'm still missing a `completed` state, and the data-fetching logic is not ideal).
+* The biggest challenge for me on this project was balancing good UX with lengthy async operations. I was able to figure this out partially, but there's more work to do! (Ex: I'm still missing a `completed` state, and the data-fetching logic is not ideal).
 * The second biggest challenge was architecture: the different table components are all tightly coupled and use the same data
 * While I'm functional in Python, this was my first experience with a Python backend, so I relied on my Rails & Node experience + AI to write good routing & DB logic
 
@@ -62,7 +60,7 @@ In general, I tried to get to a reasonable working solution as my first priority
 * There's no optimistic data rendering
 * Although there's a helpful `useApi` hook, I wrote my own logic for loading/error states in `App.tsx` because the useEffect in the hook runs immediately
 * The UI is pretty basic, and the colors are not great (ex: color contrast on hover). Anything actionable is just orange.
-* Moving the 10K item list to another list still causes the page to hang. This is happening because of the throttling, and I don't guard against time outs. Implementing the next steps I outlined (async/websocked notifications) should help!
+* Moving the 10K item list to another list still causes the page to hang. This is happening because of the throttling, and I don't guard against time outs. Implementing the next steps I outlined (async/websocket notifications) should help!
 
 
 ## Assumptions
