@@ -15,7 +15,7 @@ Here's what I was able to complete:
 * I pulled out types from App.tsx into `types.ts`
 * I defined and return error states in `collections.py` - these are visible in Dev Tools, but not the UI (yet)
 
-You can see my work/thinking in TODO.md
+You can see my work/thinking in TODO.md. You can see all the code I added (like a PR diff) here: https://github.com/maximforever/purple-spring-meadow-2934/compare/f7c7b66...main
 
 ## Next steps
 * Move collections logic to a React Context and implement FE caching instead of prop drilling. This will help decouple the components, and make it much easier to show 'moving' and 'completed' states, along with errors.
