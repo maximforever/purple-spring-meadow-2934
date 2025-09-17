@@ -21,6 +21,8 @@ export default function ListControls({
   );
 
   const [listToMoveTo, setListToMoveTo] = useState<ICollection | undefined>();
+  const [step, setStep] = useState<"select" | "showList">("select");
+  const [selection, setSelection] = useState<"selected" | "all">("selected");
 
   if (!selectedCompanies.length) {
     return null;
@@ -68,20 +70,64 @@ export default function ListControls({
 
   const label = selectedCompanies.length === 1 ? "company" : "companies";
 
+  const renderSelectStep = () => {
+    return (
+      <div className="flex flex-col gap-2 items-start w-full">
+        <span
+          className="text-xs xl:text-sm text-gray-300 font-bold text-left hover:text-orange-500 hover:cursor-pointer"
+          onClick={() => {
+            setSelection("selected");
+            setStep("showList");
+          }}
+        >
+          Add {selectedCompanies.length} {label} to a new list
+        </span>
+        <span
+          className="text-xs xl:text-sm text-gray-300 font-bold text-left hover:text-orange-500 hover:cursor-pointer"
+          onClick={() => {
+            setSelection("all");
+            setStep("showList");
+          }}
+        >
+          Add <span className="underline">all companies</span> to new list
+        </span>
+      </div>
+    );
+  };
+
+  const renderShowListStep = () => {
+    return (
+      <div className="flex flex-col gap-2 items-start w-full">
+        <span className="text-sm text-gray-300 font-bold text-left pb-4">
+          Add <span className="underline">{selection} companies</span> to list
+        </span>
+        <div className="flex flex-col gap-2 items-start w-full">{renderOtherCollectionsList()}</div>
+        {listToMoveTo !== undefined && (
+          <div className="w-full mt-8">
+            <button
+              className="bg-orange-500 text-white px-4 py-0 text-sm my-2 w-full rounded-md w-full"
+              onClick={() => handleListMove()}
+            >
+              Add to list
+            </button>
+            <button
+              className="bg-inherit text-white px-4 py-0 text-sm my-2 w-full rounded-md"
+              onClick={() => {
+                setStep("select");
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className="my-8 py-4 flex flex-col items-start w-full">
-      <span className="text-xs text-gray-300 font-bold pb-2">
-        Add {selectedCompanies.length} {label} to list:
-      </span>
-      <div className="flex flex-col gap-2 items-start w-full">{renderOtherCollectionsList()}</div>
-      {listToMoveTo !== undefined && (
-        <button
-          className="bg-orange-500 text-white px-4 py-0 text-sm my-2 w-full rounded-md"
-          onClick={() => handleListMove()}
-        >
-          Add to list
-        </button>
-      )}
+      {step === "select" && renderSelectStep()}
+      {step === "showList" && renderShowListStep()}
     </div>
   );
 }

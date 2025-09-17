@@ -20,6 +20,19 @@
 
 
 
+----
+
+[ ] Add Select All button
+[ ] Create context to hold on to selected items, current offset etc
+[ ] Create progress indicator ("moving items")
+[ ] Show success/error states
+[ ] Add functionality to move whole list
+[ ] Consider best ux
+[ ] Consider web sockets + toast for LONG requests
+
+
+
+
 ## Approach and Tradeoffs
 
 Cache & optimistic update: the actual back-end update takes a long time, but we can update the cache right away. Tradeoff - seamless UX, but not reflective of actual data state, could be confusing if they refresh while not all the items are moved. Could lock list edits while moving companies.

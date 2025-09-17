@@ -39,7 +39,6 @@ function App() {
     const companyIds = selectedCompanies.map((company) => company.id);
 
     setSelectedCompanies([]);
-    setSelectedCollectionId(collectionId);
 
     addCompaniesToCollection({
       collectionId,
