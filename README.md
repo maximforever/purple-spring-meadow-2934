@@ -19,6 +19,7 @@ Here's what I was able to complete:
 * I pulled in `twMerge` and `cslx` to work with Tailwind and added a prettier config; I also switched from a hardcoded base url to using the built-in Vite ENV.
 * I pulled out types from App.tsx into `types.ts`
 * I defined and return error states in `collections.py` - these are visible in Dev Tools, but not the UI (yet)
+* The app is not blocked while items are moving, and only one move operation is allowed - the UI is blocked, and I added a lock to the collection.
 
 You can see my work/thinking in TODO.md. You can [see all the code I added (like a PR diff)]([https://github.com/maximforever/purple-spring-meadow-2934/compare/f7c7b66...main](https://github.com/maximforever/purple-spring-meadow-2934/compare/f7c7b66...main#diff-b335630551682c19a781afebcf4d07bf978fb1f8ac04c6bf87428ed5106870f5))
 
@@ -44,7 +45,7 @@ The downside to this is clunkier UX. The upside is that FE data state matches th
 **UI Polish vs full-stack functionality**
 While FE polish is normally my jam - and I'd love to improve this, this takehome spanned the full stack: routing, DB, FE data architecture, and component architecture. I didn't invest time into design/UI improvements, or implement clever UI (modals, toast notifications for async ops). Instead, I focused on making sure the core functionality worked and that I laid the groundwork for a maintainable, scalable FE. For example, I took the time to pull out a types file and broke up the app into components, added helpful FE tools (`twMerge`, `clsx`, a prettier config), relied on Vite env variables,  and investigated using a Context + Hooks for the data. We can polish the UI on the next ticket, but these decisions will hopefully positively impact all future FE work.
 
-I realize I'm inteviewing for a FE-heavy role, and would be happy to apply some FE polish as a next-step!
+I realize I'm inteviewing for a FE-heavy role, and would be happy to apply some FE polish as a next step!
 
 **MVP, brute-force, and technical debt**
 In general, I tried to get to a reasonable working solution as my first priority. This solution could use some refactoring. For example, the top-level `App.tsx` acts as a wrapper for the table/nav/list actions component. There's bad prop drilling throughout the components.
@@ -61,6 +62,7 @@ In general, I tried to get to a reasonable working solution as my first priority
 * There's no optimistic data rendering
 * Although there's a helpful `useApi` hook, I wrote my own logic for loading/error states in `App.tsx` because the useEffect in the hook runs immediately
 * The UI is pretty basic, and the colors are not great (ex: color contrast on hover). Anything actionable is just orange.
+* Moving the 10K item list to another list still causes the page to hang. This is happening because of the throttling, and I don't guard against time outs. Implementing the next steps I outlined (async/websocked notifications) should help!
 
 
 ## Assumptions
