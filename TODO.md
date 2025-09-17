@@ -9,7 +9,7 @@
 [ ] Move a small set of companies on the FE
 [ ] Think deeply about how to handle delay; brainstorm ideas, then check with AI on more approaches
   "UX should reflect In Progress and Completed states when a lengthy action is being performed without blocking the UI"
-  [ ] Figure out how to model In Progress and Completed (locked/unlocked) states on the BE
+  [X] Figure out how to model In Progress and Completed (locked/unlocked) states on the BE
   [ ] Consider expected UX, optimistic add/remove, websockets, toast notification for done
 [X] Wire up backend - add/remove companies to to list, lock/unlock collections
 [ ] UI/UX polish - placement, spacing 
@@ -22,7 +22,7 @@
 
 ----
 
-[ ] Add Select All button
+[X] Add Select All button
 [ ] Create context to hold on to selected items, current offset etc
 [ ] Create progress indicator ("moving items")
 [ ] Show success/error states

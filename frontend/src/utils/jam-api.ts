@@ -68,3 +68,21 @@ export async function addCompaniesToCollection({
     throw error;
   }
 }
+
+export async function addAllCompaniesToCollection({
+  fromCollectionId,
+  toCollectionId,
+}: {
+  fromCollectionId: string;
+  toCollectionId: string;
+}): Promise<{ success: boolean; message?: string }> {
+  try {
+    const url = `${BASE_URL}/collections/${fromCollectionId}/add-all-companies/${toCollectionId}/`;
+    const response = await axios.post(url, {});
+
+    return response.data;
+  } catch (error) {
+    console.error("Error adding companies to collection:", error);
+    throw error;
+  }
+}

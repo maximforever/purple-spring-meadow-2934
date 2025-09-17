@@ -5,7 +5,11 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useEffect, useState } from "react";
 import CompanyTable from "./components/CompanyTable";
 import CollectionsNav from "./components/CollectionsNav";
-import { getCollectionsMetadata, addCompaniesToCollection } from "./utils/jam-api";
+import {
+  getCollectionsMetadata,
+  addCompaniesToCollection,
+  addAllCompaniesToCollection,
+} from "./utils/jam-api";
 import useApi from "./utils/useApi";
 
 import { ICompany } from "./types";
@@ -46,6 +50,21 @@ function App() {
     });
   };
 
+  const moveAllCompaniesToCollection = ({
+    fromCollectionId,
+    toCollectionId,
+  }: {
+    fromCollectionId: string;
+    toCollectionId: string;
+  }) => {
+    setSelectedCompanies([]);
+
+    addAllCompaniesToCollection({
+      fromCollectionId,
+      toCollectionId,
+    });
+  };
+
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
@@ -58,6 +77,7 @@ function App() {
               selectedCollectionId={selectedCollectionId}
               onCollectionSelect={setSelectedCollectionId}
               moveSelectedCompaniesToCollection={moveSelectedCompaniesToCollection}
+              moveAllCompaniesToCollection={moveAllCompaniesToCollection}
               selectedCompanies={selectedCompanies}
             />
           </div>

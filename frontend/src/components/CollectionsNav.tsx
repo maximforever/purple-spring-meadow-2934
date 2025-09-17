@@ -9,6 +9,13 @@ interface CollectionsNavProps {
   selectedCollectionId?: string;
   onCollectionSelect: (collectionId: string) => void;
   moveSelectedCompaniesToCollection: (collectionId: string) => void;
+  moveAllCompaniesToCollection: ({
+    fromCollectionId,
+    toCollectionId,
+  }: {
+    fromCollectionId: string;
+    toCollectionId: string;
+  }) => void;
   selectedCompanies: ICompany[];
 }
 
@@ -17,6 +24,7 @@ const CollectionsNav = ({
   selectedCollectionId,
   onCollectionSelect,
   moveSelectedCompaniesToCollection,
+  moveAllCompaniesToCollection,
   selectedCompanies,
 }: CollectionsNavProps) => {
   const renderCollectionsList = () => {
@@ -59,6 +67,7 @@ const CollectionsNav = ({
         collections={collectionsResponse}
         selectedCollectionId={selectedCollectionId}
         moveSelectedCompaniesToCollection={moveSelectedCompaniesToCollection}
+        moveAllCompaniesToCollection={moveAllCompaniesToCollection}
         selectedCompanies={selectedCompanies}
       />
     </>

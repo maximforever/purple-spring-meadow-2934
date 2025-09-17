@@ -7,7 +7,14 @@ type ListControlsProps = {
   collections: ICollection[];
   selectedCollectionId?: string;
   selectedCompanies: ICompany[];
-  moveSelectedCompaniesToCollection: (collectionId: string) => void;
+  moveSelectedCompaniesToCollection: (collectionId: string | "all") => void;
+  moveAllCompaniesToCollection: ({
+    fromCollectionId,
+    toCollectionId,
+  }: {
+    fromCollectionId: string;
+    toCollectionId: string;
+  }) => void;
 };
 
 export default function ListControls({
@@ -15,6 +22,7 @@ export default function ListControls({
   selectedCollectionId,
   selectedCompanies,
   moveSelectedCompaniesToCollection,
+  moveAllCompaniesToCollection,
 }: ListControlsProps) {
   const otherCollections = collections.filter(
     (collection) => collection.id !== selectedCollectionId,
@@ -65,7 +73,19 @@ export default function ListControls({
 
     //setMoving(true); // TODO - move this to context
     setListToMoveTo(undefined);
-    moveSelectedCompaniesToCollection(listToMoveTo.id);
+    if (selection === "selected") {
+      moveSelectedCompaniesToCollection(listToMoveTo.id);
+    } else {
+      if (selectedCollectionId === undefined) {
+        // TODO - error handling
+        return;
+      }
+
+      moveAllCompaniesToCollection({
+        fromCollectionId: selectedCollectionId,
+        toCollectionId: listToMoveTo.id,
+      });
+    }
   };
 
   const label = selectedCompanies.length === 1 ? "company" : "companies";
@@ -105,13 +125,13 @@ export default function ListControls({
         {listToMoveTo !== undefined && (
           <div className="w-full mt-8">
             <button
-              className="bg-orange-500 text-white px-4 py-0 text-sm my-2 w-full rounded-md w-full"
+              className="bg-orange-500 text-white px-4 py-0 text-sm my-2 w-full rounded-md"
               onClick={() => handleListMove()}
             >
               Add to list
             </button>
             <button
-              className="bg-inherit text-white px-4 py-0 text-sm my-2 w-full rounded-md"
+              className="bg-inherit text-white px-4 py-0 text-sm my-2 w-full rounded-md hover:text-orange-500 hover:cursor-pointer hover:border-black"
               onClick={() => {
                 setStep("select");
               }}
