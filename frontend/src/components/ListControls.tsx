@@ -146,8 +146,7 @@ export default function ListControls({
 
   return (
     <div className="my-8 py-4 flex flex-col items-start w-full">
-      {step === "select" && renderSelectStep()}
-      {step === "showList" && renderShowListStep()}
+      {step === "showList" ? renderShowListStep() : renderSelectStep()}
     </div>
   );
 }
