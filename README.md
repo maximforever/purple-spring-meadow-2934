@@ -5,6 +5,11 @@ Thank you for the opportunity to work on this project - I felt that it reflected
 ## AI
 I wrote the majority of the code. I heavily used Cursor autocomplete, directed the Agent on some high-level work (particularly on checking my Python code), and used OpenAI Codex to quickly make sense of the codebase. I take full responsibility for every line of code I wrote.
 
+## Demo
+
+[**Youtube Video Demo**](https://www.youtube.com/watch?v=TAzyAlV5rpc) showing the demo and success/error states (this video is unlisted).
+
+
 ## Completed Work
 
 Here's what I was able to complete:
@@ -15,7 +20,7 @@ Here's what I was able to complete:
 * I pulled out types from App.tsx into `types.ts`
 * I defined and return error states in `collections.py` - these are visible in Dev Tools, but not the UI (yet)
 
-You can see my work/thinking in TODO.md. You can see all the code I added (like a PR diff) here: https://github.com/maximforever/purple-spring-meadow-2934/compare/f7c7b66...main
+You can see my work/thinking in TODO.md. You can [see all the code I added (like a PR diff)]([https://github.com/maximforever/purple-spring-meadow-2934/compare/f7c7b66...main](https://github.com/maximforever/purple-spring-meadow-2934/compare/f7c7b66...main#diff-b335630551682c19a781afebcf4d07bf978fb1f8ac04c6bf87428ed5106870f5))
 
 ## Next steps
 * Move collections logic to a React Context and implement FE caching instead of prop drilling. This will help decouple the components, and make it much easier to show 'moving' and 'completed' states, along with errors.
@@ -54,7 +59,8 @@ In general, I tried to get to a reasonable working solution as my first priority
 * The components are tightly coupled; selecting a row in the MUI table affects labels in `ListControls`. Using React context will help a lot with this. Currently `App.tsx` is still managing all the data.
 * I don't show errors or a Complete state (though it's visible in Dev Tools)
 * There's no optimistic data rendering
-* Although there's a helpful `useApi` hook, I wrote my own logic for loading/error states in `App.tsx` because the useEffect in the hook runs immediately.
+* Although there's a helpful `useApi` hook, I wrote my own logic for loading/error states in `App.tsx` because the useEffect in the hook runs immediately
+* The UI is pretty basic, and the colors are not great (ex: color contrast on hover). Anything actionable is just orange.
 
 
 ## Assumptions
