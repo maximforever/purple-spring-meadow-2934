@@ -1,6 +1,6 @@
 # Harmonic Fullstack Jam
 
-Thank you for the opportunity to work on this project - I felt that it reflected my day-to-day full-stack work, and enjoyed figurign it out! 
+Thank you for the opportunity to work on this project. I felt that it was a realistic reflection of the kind of day-to-day full-stack work I excel at, and I enjoyed figuring out the architecture and data wrangling challenges!
 
 ## AI
 I wrote the majority of the code. I heavily used Cursor autocomplete, directed the Agent on some high-level work (particularly on checking my Python code), and used OpenAI Codex to quickly make sense of the codebase. Of course, I'm happy to explain every line of code I submitted!
