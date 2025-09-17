@@ -19,7 +19,7 @@ Here's what I was able to complete:
 * I pulled in `twMerge` and `cslx` to work with Tailwind and added a prettier config; I also switched from a hardcoded base url to using the built-in Vite ENV.
 * I pulled out types from App.tsx into `types.ts`
 * I defined and return error states in `collections.py` - these are visible in Dev Tools, but not the UI (yet)
-* The app is not blocked while items are moving, and only one move operation is allowed - the UI is blocked, and I added a lock to the collection.
+* The app is not blocked while items are moving, and only one move operation is allowed - the UI doesn't allow more than 1 move operation, and I added a lock to the collection on the back end.
 
 You can see my work/thinking in TODO.md. You can [see all the code I added (like a PR diff)]([https://github.com/maximforever/purple-spring-meadow-2934/compare/f7c7b66...main](https://github.com/maximforever/purple-spring-meadow-2934/compare/f7c7b66...main#diff-b335630551682c19a781afebcf4d07bf978fb1f8ac04c6bf87428ed5106870f5))
 
