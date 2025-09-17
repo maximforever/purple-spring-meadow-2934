@@ -12,7 +12,7 @@
   [X] Figure out how to model In Progress and Completed (locked/unlocked) states on the BE
   [ ] Consider expected UX, optimistic add/remove, websockets, toast notification for done
 [X] Wire up backend - add/remove companies to to list, lock/unlock collections
-[ ] UI/UX polish - placement, spacing 
+[ ] UI/UX polish - placement, spacing
 [ ] Error notifications - something like Toast? For example, if a collection is locked
 [ ] Consider Undo
 [ ] Consider Remove
